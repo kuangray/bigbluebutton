@@ -1,9 +1,17 @@
+/* @override http://192.168.114.134/playback/slides/css/bbb.playback.css */
+
+/* @override http://192.168.114.134/playback/slides/css/bbb.playback.css */
+
+/* @override http://192.168.114.134/playback/slides/css/bbb.playback.css */
+
 html{
 	height:100%;
+        
 }
 body {
+    background-color:#808080;
 	font-family: Verdana;
-	height:100%;
+   
 }
 h1 {
 	text-align:center
@@ -12,46 +20,227 @@ br{
 	display:none
 }
 
-#playbackArea{
-	width: 800px;
-	height: 700px;
-	margin-left: auto;
-	margin-right: auto;
+#playbackArea-wrap{
+	width:1330px;
+	margin:0 auto;
 }
 
+
+#videoBoxHeading{
+	background-color:#505050;
+	padding-left:15px;
+	height:25px;
+	line-height:25px;
+	font-family:Georgia, serif;
+	font-size:11pt;
+	color:#eeeeee;
+	font-weight:bold;
+	border-bottom:1px solid #000;
+}
+
+
+
+#playbackArea{
+    /*float:left;*/
+	border:2px solid #404040;
+	background-color:#eeeeee;
+	box-shadow:5px 5px 5px #606060;
+	width: 640px;
+	height:480px;
+
+		
+}
+
+#presentationBox{
+	background-color:#fff;
+	overflow:hidden;
+	border-radius:15px;
+	background-color:#eeeeee;
+	border:2px solid #404040;
+	box-shadow:5px 5px 5px #606060;
+	height:520px;
+	/*width: 650px;*/
+	
+}
+
+
+#presentationBoxHeading{
+	background-color:#505050;
+	padding-left:15px;
+	height:25px;
+	line-height:25px;
+	font-family:Georgia, serif;
+	font-size:11pt;
+	color:#eeeeee;
+	font-weight:bold;
+	border-bottom:1px solid #000;
+}
+
+
 #audioRecording{
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
+ 	display: block;
+    position:fixed; 
+    bottom:0; 
+    height:33px; 
+    width:99%;
+    z-index:1000;
+    
 }
 
 #slide{
+	width:640px;
+	height:480px;
 	background-image:url('../images/logo.png');
+	background-position: center;
+	margin: 5px auto 0;
+}
+
+#slide img{
+	width: 640px;
+	height: 480px;
+	display:block;
+	margin:0 auto;
+	position:static !important;
+	/* box-shadow: 5px 5px #bbbbbb; */
+}
+
+#leftPanel{
+    width:660px;
+    float: left;
 }
 
 
-.chatcontainer{
-	width:420px;
-	height:600px;
-	margin-left: auto;
-    margin-right: auto;
-	position: relative;
-	top:-650px;
-	left:610px;
+#rightPanel{
+	display: inline-block;
+    margin-left:10px;
+    width:660px;
 }
+
+#videoBox{
+	background-color:#fff;
+	overflow:hidden;
+	border-radius:15px;
+	background-color:#eeeeee;
+	border:2px solid #404040;
+	box-shadow:5px 5px 5px #606060;
+	/*height:500px;*/
+}
+
+#videoBoxHeading{
+	background-color:#505050;
+	padding-left:15px;
+	height:25px;
+	line-height:25px;
+	font-family:Georgia, serif;
+	font-size:11pt;
+	color:#eeeeee;
+	font-weight:bold;
+	border-bottom:1px solid #000;
+}
+
+#videoRecording {
+	height:480px;
+	width: 640px;
+	padding:5px;
+	/*overflow:auto; */
+	
+}
+
+
+#chatBox{
+	background-color:#fff;
+	overflow:hidden;
+	border-radius:15px;
+	background-color:#eeeeee;
+	border:2px solid #404040;
+	box-shadow:5px 5px 5px #606060;
+	height:300px;
+	margin-top: 15px;
+
+}
+
+
+
+#chatBoxHeading{
+	background-color:#505050;
+	padding-left:15px;
+	height:25px;
+	line-height:25px;
+	font-family:Georgia, serif;
+	font-size:11pt;
+	color:#eeeeee;
+	font-weight:bold;
+	border-bottom:1px solid #000;
+	
+}
+
 #chat{
-	margin-left: auto;
-	margin-right: auto;
-	position:relative;
-	top:5px;
-	padding-left:10px;
-	padding-right:10px;
+	height:245px;
+	padding:15px;
+	overflow:auto;
+	
 }
+
 #chat div p{
-	margin-bottom:-10px;
+
 	padding:0px;
 	font-size:13px
 }
+
+#download{
+	margin-top:15px;
+	background-color:#fff;
+	height:50px;
+	line-height:50px;
+	text-align:center;
+	font-family: Georgia, serif;
+	font-size:14pt;
+	color:#404040;
+	border-radius:15px;
+	background-color:#eeeeee;
+	padding:15px;
+	
+	border:2px solid #404040;
+	box-shadow:5px 5px 5px #606060;
+	
+	cursor:pointer;
+}
+
+#credits{
+	margin-top:15px;
+	background-color:#fff;
+	height:25px;
+	line-height:25px;
+	text-align:center;
+	font-family: Georgia, serif;
+	font-size:14pt;
+	color:#404040;
+	border-radius:15px;
+	background-color:#eeeeee;
+	padding:15px;
+	
+	border:2px solid #404040;
+	box-shadow:5px 5px 5px #606060;
+}
+
+#share{
+	margin-top:15px;
+	background-color:#fff;
+	height:50px;
+	line-height:50px;
+	text-align:center;
+	font-family: Georgia, serif;
+	font-size:14pt;
+	color:#404040;
+	border-radius:15px;
+	background-color:#eeeeee;
+	padding:15px;
+	
+	border:2px solid #404040;
+	box-shadow:5px 5px 5px #606060;
+	cursor:pointer;
+}
+
 #big {display:none}
 #mid {display:none}
 
@@ -63,3 +252,4 @@ br{
 
         text-align: center;
 }
+	

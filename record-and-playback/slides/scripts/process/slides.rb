@@ -62,6 +62,19 @@ if not FileTest.directory?(target_dir)
   
   end
   
+  # Process webcam recording
+  #BigBlueButton.process_webcam(target_dir, temp_dir, meeting_id)
+  BigBlueButton.process_video(target_dir, temp_dir, meeting_id)
+
+  #BigBlueButton.logger.info("target dir: #{target_dir} temp_dir: #{temp_dir}")
+  
+  #command = "ffmpeg -i #{target_dir}/muxed-audio-webcam.flv  -vcodec libx264   -sameq -ar 22050 #{target_dir}/muxed-audio-webcam.mp4"
+  #BlueButton.execute(command) 
+  #command = "ffmpeg -i #{target_dir}/muxed-audio-webcam.flv  -sameq -ar 22050 #{target_dir}/muxed-audio-webcam.ogv"
+  #BigBlueButton.execute(command) 
+
+
+
 	process_done = File.new("#{recording_dir}/status/processed/#{meeting_id}-slides.done", "w")
   process_done.write("Processed #{meeting_id}")
   process_done.close

@@ -13,7 +13,7 @@ module BigBlueButton
   def self.strip_audio_from_video(video_in, video_out)
     BigBlueButton.logger.info("Task: Stripping audio from video")      
     command = "ffmpeg -i #{video_in} -loglevel fatal -v -10 -an -vcodec copy #{video_out}"
-    BigBlueButton.execute(command)	
+    BigBlueButton.execute(command)  
     # TODO: check for result, raise an exception when there is an error
   end
 
@@ -76,19 +76,19 @@ module BigBlueButton
    
        #Create .mpg files
         mpgs = []
-	videos_in.each do |flv| 
-		mpg =  "#{flv}.mpg"
-	        BigBlueButton.convert_flv_to_mpg(flv,mpg)
-		mpgs << mpg
-    	end
+  videos_in.each do |flv| 
+    mpg =  "#{flv}.mpg"
+          BigBlueButton.convert_flv_to_mpg(flv,mpg)
+    mpgs << mpg
+      end
     
-	target_dir = File.dirname("#{video_out}")
+  target_dir = File.dirname("#{video_out}")
 
-	#Concatenate mpg files
-	BigBlueButton.concatenate_mpg_files(mpgs,"#{target_dir}/webcam.mpg")
+  #Concatenate mpg files
+  BigBlueButton.concatenate_mpg_files(mpgs,"#{target_dir}/webcam.mpg")
     
-	#Convert mpg to flv
-	BigBlueButton.convert_mpg_to_flv("#{target_dir}/webcam.mpg", video_out)
+  #Convert mpg to flv
+  BigBlueButton.convert_mpg_to_flv("#{target_dir}/webcam.mpg", video_out)
 
   end
 
@@ -101,7 +101,7 @@ module BigBlueButton
 
   #Concatenates mpg files
   def self.concatenate_mpg_files(videos_in, mpg_video_out)        
-  	command = "cat #{videos_in.join(' ')} >  #{mpg_video_out}"
+    command = "cat #{videos_in.join(' ')} >  #{mpg_video_out}"
         BigBlueButton.logger.info("Task: Concatenating .mpg files")
         BigBlueButton.execute(command);
   end
@@ -212,6 +212,10 @@ module BigBlueButton
 
   MAX_VID_WIDTH = 640
   MAX_VID_HEIGHT = 480
+
+  POPCORN_MAX_VID_WIDTH = 320
+  POPCORN_MAX_VID_HEIGHT = 240
+
   
   # Calculate the anamorphic factor for this video.
   #   see http://howto-pages.org/ffmpeg/
@@ -326,7 +330,7 @@ module BigBlueButton
     webcams = []
     paddings.concat(matched_evts).sort{|a,b| a[:start_timestamp] <=> b[:start_timestamp]}.each do |comb|
       if (comb[:gap])
-      	blank_flv = "#{temp_dir}/#{comb[:stream]}"
+        blank_flv = "#{temp_dir}/#{comb[:stream]}"
         webcams << blank_flv
         BigBlueButton.create_blank_video((comb[:stop_timestamp] - comb[:start_timestamp].to_f)/1000.0, 1000, blank_canvas, blank_flv)
       else
@@ -339,17 +343,17 @@ module BigBlueButton
         width = frame_size[:width]
         height = frame_size[:height]
         
-     		frame_size = "-s #{width}x#{height}"
-    		side_padding = ((MAX_VID_WIDTH - width) / 2).to_i
-    		top_bottom_padding = ((MAX_VID_HEIGHT - height) / 2).to_i
+        frame_size = "-s #{width}x#{height}"
+        side_padding = ((MAX_VID_WIDTH - width) / 2).to_i
+        top_bottom_padding = ((MAX_VID_HEIGHT - height) / 2).to_i
  
-   			# Use for newer version of FFMPEG
-    		padding = "-vf pad=#{MAX_VID_WIDTH}:#{MAX_VID_HEIGHT}:#{side_padding}:#{top_bottom_padding}:FFFFFF"       
-		    command = "ffmpeg -i #{stripped_webcam} -loglevel fatal -v -10 -aspect 4:3 -r 1000 -sameq #{frame_size} #{padding} #{scaled_flv}" 
-		    #BigBlueButton.logger.info(command)
-		    #IO.popen(command)
-		    #Process.wait                
-		    BigBlueButton.execute(command)	
+        # Use for newer version of FFMPEG
+        padding = "-vf pad=#{MAX_VID_WIDTH}:#{MAX_VID_HEIGHT}:#{side_padding}:#{top_bottom_padding}:FFFFFF"       
+        command = "ffmpeg -i #{stripped_webcam} -loglevel fatal -v -10 -aspect 4:3 -r 1000 -sameq #{frame_size} #{padding} #{scaled_flv}" 
+        #BigBlueButton.logger.info(command)
+        #IO.popen(command)
+        #Process.wait                
+        BigBlueButton.execute(command)  
       end
     end
                
@@ -376,11 +380,11 @@ module BigBlueButton
     flvs = []
     paddings.concat(matched_evts).sort{|a,b| a[:start_timestamp] <=> b[:start_timestamp]}.each do |comb|
       if (comb[:gap])
-      	blank_flv = "#{temp_dir}/#{comb[:stream]}"
+        blank_flv = "#{temp_dir}/#{comb[:stream]}"
         flvs << blank_flv
         BigBlueButton.create_blank_deskshare_video((comb[:stop_timestamp] - comb[:start_timestamp].to_f)/1000, 1000, blank_canvas, blank_flv)
       else
-      	scaled_flv = "#{temp_dir}/#{meeting_id}/deskshare/scaled-#{comb[:stream]}"
+        scaled_flv = "#{temp_dir}/#{meeting_id}/deskshare/scaled-#{comb[:stream]}"
         flvs << scaled_flv
         flv_in = "#{temp_dir}/#{meeting_id}/deskshare/#{comb[:stream]}"
         frame_size = BigBlueButton.scale_to_640_x_480(BigBlueButton.get_video_width(flv_in), BigBlueButton.get_video_height(flv_in))
@@ -388,23 +392,92 @@ module BigBlueButton
         width = frame_size[:width]
         height = frame_size[:height]
         
-     		frame_size = "-s #{width}x#{height}"
-    		side_padding = ((MAX_VID_WIDTH - width) / 2).to_i
-    		top_bottom_padding = ((MAX_VID_HEIGHT - height) / 2).to_i
+        frame_size = "-s #{width}x#{height}"
+        side_padding = ((MAX_VID_WIDTH - width) / 2).to_i
+        top_bottom_padding = ((MAX_VID_HEIGHT - height) / 2).to_i
  
-   			# Use for newer version of FFMPEG
-    		padding = "-vf pad=#{MAX_VID_WIDTH}:#{MAX_VID_HEIGHT}:#{side_padding}:#{top_bottom_padding}:FFFFFF"       
-		    command = "ffmpeg -i #{flv_in} -loglevel fatal -v -10 -aspect 4:3 -r 1000 -sameq #{frame_size} #{padding} -vcodec flashsv #{scaled_flv}" 
-		    BigBlueButton.execute(command)
-		    #BigBlueButton.logger.info(command)
-		    #IO.popen(command)
-		    #Process.wait 
+        # Use for newer version of FFMPEG
+        padding = "-vf pad=#{MAX_VID_WIDTH}:#{MAX_VID_HEIGHT}:#{side_padding}:#{top_bottom_padding}:FFFFFF"       
+        command = "ffmpeg -i #{flv_in} -loglevel fatal -v -10 -aspect 4:3 -r 1000 -sameq #{frame_size} #{padding} -vcodec flashsv #{scaled_flv}" 
+        BigBlueButton.execute(command)
+        #BigBlueButton.logger.info(command)
+        #IO.popen(command)
+        #Process.wait 
       end
     end
                
     BigBlueButton.concatenate_videos(flvs, "#{target_dir}/deskshare.flv")   
   end
+ 
+  def self.process_video(target_dir, temp_dir, meeting_id) 
+    BigBlueButton.logger.info("Processing video")
+    BigBlueButton.logger.info("target_dir: #{target_dir}")
+    BigBlueButton.logger.info("Processing video")
+    BigBlueButton.logger.info("temp_dir: #{temp_dir}")
+    
+    # Process audio
+    BigBlueButton::AudioProcessor.process("#{temp_dir}/#{meeting_id}", "#{target_dir}/audio.ogg")
+
+    # Process video    
+    video_dir = "#{temp_dir}/#{meeting_id}/video/#{meeting_id}"
+    blank_canvas = "#{temp_dir}/canvas.jpg"
+    BigBlueButton.create_blank_canvas(MAX_VID_WIDTH, MAX_VID_HEIGHT, "white", blank_canvas)
+            
+    events_xml = "#{temp_dir}/#{meeting_id}/events.xml"
+    first_timestamp = BigBlueButton::Events.first_event_timestamp(events_xml)
+    last_timestamp = BigBlueButton::Events.last_event_timestamp(events_xml)        
+    start_evt = BigBlueButton::Events.get_start_video_events(events_xml)
+    stop_evt = BigBlueButton::Events.get_stop_video_events(events_xml)               
+    matched_evts = BigBlueButton::Events.match_start_and_stop_video_events(start_evt, stop_evt)        
+    
+    # BigBlueButton.logger.info("first_timestamp: #{first_timestamp}")
+    # BigBlueButton.logger.info("last_timestamp: #{last_timestamp}")
+    # BigBlueButton.logger.info("start_evt: #{start_evt}")
+    # BigBlueButton.logger.info("stop_evt: #{stop_evt}")
+    # BigBlueButton.logger.info("matched_evts: #{matched_evts}")
+
+
+    paddings = BigBlueButton.generate_video_paddings(matched_evts, first_timestamp, last_timestamp)
+        
+    webcams = []
+    paddings.concat(matched_evts).sort{|a,b| a[:start_timestamp] <=> b[:start_timestamp]}.each do |comb|
+      if (comb[:gap])
+        blank_flv = "#{temp_dir}/#{comb[:stream]}"
+        webcams << blank_flv
+        BigBlueButton.create_blank_video((comb[:stop_timestamp] - comb[:start_timestamp].to_f)/1000.0, 1000, blank_canvas, blank_flv)
+      else
+        stripped_webcam = "#{temp_dir}/stripped-wc-#{comb[:stream]}.flv"
+        BigBlueButton.strip_audio_from_video("#{video_dir}/#{comb[:stream]}.flv", stripped_webcam)
+        scaled_flv = "#{temp_dir}/#{meeting_id}/scaled-wc-#{comb[:stream]}.flv"
+        webcams << scaled_flv
+        frame_size = BigBlueButton.scale_to_640_x_480(BigBlueButton.get_video_width(stripped_webcam), BigBlueButton.get_video_height(stripped_webcam))
   
+        width = frame_size[:width]
+        height = frame_size[:height]
+        
+        frame_size = "-s #{width}x#{height}"
+        side_padding = ((MAX_VID_WIDTH - width) / 2).to_i
+        top_bottom_padding = ((MAX_VID_HEIGHT - height) / 2).to_i
+ 
+        # Use for newer version of FFMPEG
+        padding = "-vf pad=#{MAX_VID_WIDTH}:#{MAX_VID_HEIGHT}:#{side_padding}:#{top_bottom_padding}:FFFFFF"       
+        command = "ffmpeg -i #{stripped_webcam} -loglevel fatal -v -10 -aspect 4:3 -r 1000 -sameq #{frame_size} #{padding} #{scaled_flv}" 
+        #BigBlueButton.logger.info(command)
+        #IO.popen(command)
+        #Process.wait                
+        BigBlueButton.execute(command)  
+      end
+    end
+               
+    concat_vid = "#{target_dir}/webcam.flv"
+    BigBlueButton.concatenate_videos(webcams, concat_vid)        
+    #BigBlueButton.multiplex_audio_and_video("#{target_dir}/audio.ogg", concat_vid, "#{target_dir}/muxed-audio-webcam.mp4")
+    # multiplex audio & video
+    command = "ffmpeg -i #{target_dir}/audio.ogg  -i #{concat_vid} -loglevel fatal -v -10  -vcodec libx264 -profile high  -sameq  -map 1:0 -map 0:0 -ar 22050 #{target_dir}/muxed-audio-webcam.mp4"
+    # command = "ffmpeg -i #{target_dir}/muxed-audio-webcam.flv  -vcodec libx264   -vprofile high -preset slower -b:v 1000k  #{target_dir}/muxed-audio-webcam.mp4"
+    BigBlueButton.execute(command)
+  end
+
 end
 
 

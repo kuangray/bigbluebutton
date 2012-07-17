@@ -43,13 +43,13 @@ document.addEventListener( "DOMContentLoaded", function() {
 		}
 	} else if (appVersion.match("Safari") != null && appVersion.match("Chrome") == null){
 		//alert("Safari");
-  		video.setAttribute('src', RECORDINGS + '/video/muxed-audio-webcam.mp4');
+  		video.setAttribute('src', RECORDINGS + '/video/webcams.mp4');
 		//video.setAttribute('src', 'http://videos.mozilla.org/serv/webmademovies/wtfpopcorn.mp4');
 
         video.setAttribute('type','video/mp4');
   	} else {
   		//alert("Chrome & FF");
-  		video.setAttribute('src', RECORDINGS + '/video/muxed-audio-webcam.mp4');
+  		video.setAttribute('src', RECORDINGS + '/video/webcams.mp4');
 		//video.setAttribute('src', 'http://videos.mozilla.org/serv/webmademovies/wtfpopcorn.mp4');
 
         video.setAttribute('type','video/mp4');
@@ -67,7 +67,7 @@ function getAudio(){
 }
 
 function getVideo(){
-	window.location="/slides/"+MEETINGID+"/video/muxed-audio-webcam.mp4";
+	window.location="/slides/"+MEETINGID+"/video/webcams.mp4";
 }
 
 function share(){

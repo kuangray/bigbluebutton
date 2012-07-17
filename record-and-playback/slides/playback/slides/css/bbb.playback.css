@@ -4,6 +4,8 @@
 
 /* @override http://192.168.114.134/playback/slides/css/bbb.playback.css */
 
+/* @override http://192.168.114.134/playback/slides/css/bbb.playback.css */
+
 html{
 	height:100%;
         
@@ -139,7 +141,7 @@ br{
 }
 
 #videoRecording {
-	height:480px;
+	height:960px;
 	width: 640px;
 	padding:5px;
 	/*overflow:auto; */

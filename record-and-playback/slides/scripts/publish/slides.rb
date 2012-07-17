@@ -41,21 +41,20 @@ if (playback == "slides")
 		
 		audio_dir = "#{package_dir}/audio"
 		FileUtils.mkdir_p audio_dir
-		
+
+		video_dir = "#{package_dir}/video"
+		FileUtils.mkdir_p video_dir
+
 
 		FileUtils.cp("#{process_dir}/audio.ogg", audio_dir)
 		FileUtils.cp("#{process_dir}/temp/#{meeting_id}/audio/recording.wav", audio_dir)
+		FileUtils.cp("#{process_dir}/webcams.mp4", video_dir)
 		FileUtils.cp("#{process_dir}/events.xml", package_dir)
 		FileUtils.cp_r("#{process_dir}/presentation", package_dir)
 
-		# copy webcam video
-		video_dir = "#{package_dir}/video"
-		FileUtils.mkdir_p video_dir
-		FileUtils.cp("#{process_dir}/muxed-audio-webcam.mp4", video_dir)
-		#FileUtils.cp("#{process_dir}/muxed-audio-webcam.ogv", video_dir)
 
 
-        BigBlueButton.logger.info("Creating metadata.xml")
+                BigBlueButton.logger.info("Creating metadata.xml")
 		# Create metadata.xml
 		b = Builder::XmlMarkup.new(:indent => 2)		 
 		metaxml = b.recording {
